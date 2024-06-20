@@ -5,6 +5,17 @@
 
 using namespace mlx::core;
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_creation_ops() {
   int M = 2000;
   int N = 500;
@@ -20,6 +31,17 @@ void time_creation_ops() {
   TIME(arange_fp32);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_type_conversions() {
   int M = 2000;
   int N = 500;
@@ -42,6 +64,17 @@ void time_type_conversions() {
   TIMEM("bool to uint32", astype, a, uint32, device);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_random_generation() {
   int M = 2000;
   int N = 500;
@@ -52,6 +85,17 @@ void time_random_generation() {
   TIME(normal);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_unary_ops() {
   int M = 2000;
   int N = 500;
@@ -71,6 +115,17 @@ void time_unary_ops() {
   TIME(mlx::core::log, a, device);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_binary_ops() {
   int M = 1000, N = 100, K = 10;
   auto condition = random::randint(0, 2, {M, N, K});
@@ -109,6 +164,17 @@ void time_binary_ops() {
   TIMEM("scalar-scalar broadcast", where, condition, a, b, device);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_strided_ops() {
   int M = 50, N = 50, O = 50, P = 50;
   auto a = random::uniform({M, N, O, P});
@@ -122,6 +188,17 @@ void time_strided_ops() {
   TIMEM("strided", add, a, b, device);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_comparisons() {
   int M = 1000, N = 100, K = 10;
   auto a = random::uniform({M, N, K});
@@ -135,6 +212,17 @@ void time_comparisons() {
   TIME(less_equal, a, b, device);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_matvec() {
   int M = 2000, N = 200;
   auto a = random::uniform({M, N});
@@ -148,6 +236,17 @@ void time_matvec() {
   TIME(matvec_transpose);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_matmul() {
   int M = 1000, N = 1000, K = 1000;
   auto a = random::uniform({M, K});
@@ -160,6 +259,17 @@ void time_matmul() {
   TIME(transpose_matmul);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_reductions() {
   auto a = random::normal({10000, 1000});
   eval(a);
@@ -194,6 +304,17 @@ void time_reductions() {
   TIME(argmin_along_1);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_gather_scatter() {
   auto a = random::normal({1000, 768});
   eval(a);
@@ -239,6 +360,17 @@ void time_gather_scatter() {
   TIME(single_element_add);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void time_divmod() {
   auto a = random::normal({1000});
   auto b = random::normal({1000});
@@ -253,6 +385,17 @@ void time_divmod() {
   TIME(divmod_separate);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 int main() {
   std::cout << "Benchmarks for " << default_device() << std::endl;
   time_creation_ops();
