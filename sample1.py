@@ -111,13 +111,61 @@ def param_count(module:torch.nn.Module): return sum(p.numel() for p in module.pa
 def buffer_count(module:torch.nn.Module): return sum(b.numel() for b in module.buffers())
 
 
-def _summary_hook(path:str, module:torch.nn.Module, input:tuple[torch.Tensor], output: torch.Tensor):#pylint:disable=W0622
+def _summary_hook(path:str, module:torch.nn.Module, input:tuple[torch.Tensor], output: torch.Tensor):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+#pylint:disable=W0622
     input_info = '; '.join([(str(tuple(i.size())) if hasattr(i, "size") else str(i)[:100]) for i in input])
     print(
         f"{path:<45}{type_str(module):<45}{input_info:<25}{str(tuple(output.size())):<25}{param_count(module):<10}{buffer_count(module):<10}"
     )
 
 def _register_summary_hooks(hooks:list, name:str, path:str, module:torch.nn.Module):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     for name_, module_ in module.named_children():
         _register_summary_hooks(hooks, name_, f"{path}/{name}" if len(path)!=0 else name, module_)
     if not is_container(module):
