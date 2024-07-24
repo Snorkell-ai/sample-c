@@ -17,14 +17,28 @@ from .python_tools import type_str, try_copy, EndlessContinuingIterator, Compose
 CUDA_IF_AVAILABLE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 def ensure_device(x, device:Optional[torch.device]):
-    """Recursively moves x to device, if possible. Note that this can be very slow.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        x (_type_): _description_
-        device (Optional[torch.device]): _description_
+        dictionary (dict): The processed files map.
 
     Returns:
-        _type_: _description_
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if device is None: return x
     if isinstance(x, torch.Tensor): return x.to(device)
@@ -32,52 +46,112 @@ def ensure_device(x, device:Optional[torch.device]):
     else: return x
 
 def ensure_detach(x) -> Any:
-    """Recursively detaches x, if possible. Note that this can be very slow.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        x (_type_): _description_
+        dictionary (dict): The processed files map.
 
     Returns:
-        Any: _description_
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if isinstance(x, torch.Tensor): return x.detach()
     elif isinstance(x, (list, tuple)): return [ensure_detach(i) for i in x]
     else: return x
 
 def ensure_cpu(x) -> Any:
-    """Recursively moves x to cpu, if possible. Note that this can be very slow.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        x (_type_): _description_
+        dictionary (dict): The processed files map.
 
     Returns:
-        Any: _description_
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if isinstance(x, torch.Tensor): return x.cpu()
     elif isinstance(x, (list, tuple)): return [ensure_cpu(i) for i in x]
     else: return x
 
 def ensure_detach_cpu(x) -> Any:
-    """Recursively detaches x and moves it to cpu, if possible. Note that this can be very slow.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        x (_type_): _description_
+        dictionary (dict): The processed files map.
 
     Returns:
-        Any: _description_
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if isinstance(x, torch.Tensor): return x.detach().cpu()
     elif isinstance(x, (list, tuple)): return [ensure_detach_cpu(i) for i in x]
     else: return x
 
 def ensure_float(x) -> Any:
-    """Converts x to float if possible. (I need to add numpy scalar arrays)
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        x (_type_): _description_
+        dictionary (dict): The processed files map.
 
     Returns:
-        Any: _description_
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if isinstance(x, torch.Tensor) and x.numel() == 1: return float(x.detach().cpu())
     # TODO: numpy scalar arrays
@@ -95,6 +169,30 @@ class FreezeModel:
         self.frozen = True
 
     def unfreeze(self):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         for i, param in enumerate(self.model.parameters()):
             param.requires_grad = self.original_requires_grads[i]
 
@@ -102,7 +200,29 @@ class FreezeModel:
 
 
 def is_container(mod:torch.nn.Module):
-    """Returns True if the module is a container"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     if len(list(mod.children())) == 0: return False # all containers have chilren
     if len(list(mod.parameters(False))) == 0 and len(list(mod.buffers(False))) == 0: return True # containers don't do anything themselves so they can't have parameters or buffers
     return False # has children, but has params or buffers
@@ -111,13 +231,61 @@ def param_count(module:torch.nn.Module): return sum(p.numel() for p in module.pa
 def buffer_count(module:torch.nn.Module): return sum(b.numel() for b in module.buffers())
 
 
-def _summary_hook(path:str, module:torch.nn.Module, input:tuple[torch.Tensor], output: torch.Tensor):#pylint:disable=W0622
+def _summary_hook(path:str, module:torch.nn.Module, input:tuple[torch.Tensor], output: torch.Tensor):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+#pylint:disable=W0622
     input_info = '; '.join([(str(tuple(i.size())) if hasattr(i, "size") else str(i)[:100]) for i in input])
     print(
         f"{path:<45}{type_str(module):<45}{input_info:<25}{str(tuple(output.size())):<25}{param_count(module):<10}{buffer_count(module):<10}"
     )
 
 def _register_summary_hooks(hooks:list, name:str, path:str, module:torch.nn.Module):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     for name_, module_ in module.named_children():
         _register_summary_hooks(hooks, name_, f"{path}/{name}" if len(path)!=0 else name, module_)
     if not is_container(module):
@@ -130,7 +298,29 @@ def _register_summary_hooks(hooks:list, name:str, path:str, module:torch.nn.Modu
         )
 
 def summary(model: torch.nn.Module, input: Sequence | torch.Tensor, device:Any = CUDA_IF_AVAILABLE, orig_input = False, send_dummy=False):#pylint:disable=W0622
-    "Print a summary table of `module`."
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     model.eval()
     model = model.to(device)
     with torch.no_grad():
@@ -160,6 +350,30 @@ def one_batch(
     device = CUDA_IF_AVAILABLE,
     train=True,
 ):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
 
     preds = model(ensure_device(inputs, device))
     loss = loss_fn(preds, ensure_device(targets, device))
@@ -193,6 +407,30 @@ class Trainer:
             self.best_model = self.model.state_dict()
 
     def one_batch(self, inputs, targets, train = True):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         if train is False: self.model.eval()
         else: self.model.train()
         with nullcontext() if train else torch.no_grad():
@@ -213,6 +451,30 @@ class Trainer:
 
 
 def copy_state_dict(state_dict:dict):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     return {
         k: (
             v.detach().clone()
@@ -231,10 +493,58 @@ class BackupModule:
         self.state_dict = copy_state_dict(model.state_dict())
 
     def update(self, model:Optional[torch.nn.Module] = None):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         if model is None: model = self.model
         self.state_dict = copy_state_dict(model.state_dict()) # type:ignore
 
     def restore(self, model:Optional[torch.nn.Module] = None):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         if model is None: model = self.model
         model.load_state_dict(copy_state_dict(self.state_dict)) # type:ignore
         return model
@@ -244,10 +554,58 @@ def get_lr(optimizer:torch.optim.Optimizer) -> float:
     return optimizer.param_groups[0]['lr']
 
 def set_lr(optimizer:torch.optim.Optimizer, lr:int|float):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     for g in optimizer.param_groups:
         g['lr'] = lr
 
 def change_lr(optimizer:torch.optim.Optimizer, fn:Callable):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     for g in optimizer.param_groups:
         g['lr'] = fn(g['lr'])
 
@@ -264,6 +622,30 @@ def lr_finder_fn(
     log = True,
     device: Any = CUDA_IF_AVAILABLE,
 ):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     if device is None: device = torch.device('cpu')
     lrs = []
     losses = []
@@ -310,6 +692,30 @@ def lr_finder(
     log = True,
     device: Any = CUDA_IF_AVAILABLE,
 ) -> tuple:
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     iter_losses:list[list[float]] = []
     iter_lrs:list[list[float]] = []
 
@@ -369,6 +775,30 @@ def apply_init_fn(model:torch.nn.Module, init_fn: Callable, filt = has_nonzero_w
     return model.apply(lambda m: init_fn(m.weight) if hasattr(m, "weight") and (filt(m) if filt is not None else True) else None)
 
 def smart_tonumpy(t):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     if isinstance(t, torch.Tensor):
         t = t.detach().cpu().numpy()
     return t
@@ -379,16 +809,29 @@ def to_binary(t:torch.Tensor, threshold:float = 0.5):
 
 
 def center_of_mass(feature:torch.Tensor):
-    '''
-    https://github.com/tym002/tensorflow_compute_center_of_mass/blob/main/compute_center_mass.py
+    """Save the processed files map to a JSON file.
 
-    COM computes the center of mass of the input 4D or 5D image
-    To use COM in a tensorflow model, use layers.Lambda
-    Arguments:
-        feature: input image of 5D tensor with format [batch,x,y,z,channel]
-                    or 4D tensor with format [batch,x,y,channel]
-        nx,ny,nz: dimensions of the input image, if using 4D tensor, nz = None
-    '''
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     if feature.ndim == 3: nx, ny, nz = feature.shape
     elif feature.ndim == 2: nx, ny = feature.shape
     else: raise NotImplementedError
@@ -439,8 +882,28 @@ def center_of_mass(feature:torch.Tensor):
     return center_mass[0].squeeze(1)
 
 def binary_erode3d(tensor, n = 1):
-    """
-    Erodes a 3D binary tensor.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if n > 1: tensor = binary_erode3d(tensor, n-1)
     kernel = torch.tensor([[[[[0,0,0],[0,1,0],[0,0,0]],[[0,1,0],[1,1,1],[0,1,0]],[[0,0,0],[0,1,0],[0,0,0]]]]], dtype=torch.int64)
@@ -450,7 +913,29 @@ def binary_erode3d(tensor, n = 1):
 
 
 def area_around(tensor:torch.Tensor, coord, size) -> torch.Tensor:
-    """Returns a tensor of `size` size around `coord`"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     if len(coord) == 3:
         x, y, z = coord
         x, y, z = int(x), int(y), int(z)
@@ -494,6 +979,30 @@ def area_around(tensor:torch.Tensor, coord, size) -> torch.Tensor:
 
 
 def one_hot_mask(mask: torch.Tensor, num_classes:int) -> torch.Tensor:
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     if mask.ndim == 3:
         return torch.nn.functional.one_hot(mask.to(torch.int64), num_classes).permute(3, 0, 1, 2).to(torch.float32) # pylint:disable=E1102 #type:ignore
     elif mask.ndim == 2:
@@ -505,7 +1014,29 @@ def count_parameters(model):
     return sum([p.numel() for p in model.parameters() if p.requires_grad])
 
 def replace_layers(model:torch.nn.Module, old:type, new:torch.nn.Module):
-    """https://www.kaggle.com/code/ankursingh12/why-use-setattr-to-replace-pytorch-layers"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     for n, module in model.named_children():
         if len(list(module.children())) > 0:
             ## compound module, go inside it
@@ -516,7 +1047,29 @@ def replace_layers(model:torch.nn.Module, old:type, new:torch.nn.Module):
             setattr(model, n, new)
 
 def replace_conv(model:torch.nn.Module, old:type, new:type):
-    """Bias always True!!!"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     for n, module in model.named_children():
         if len(list(module.children())) > 0:
             ## compound module, go inside it
@@ -528,7 +1081,29 @@ def replace_conv(model:torch.nn.Module, old:type, new:type):
                                   module.stride, module.padding, module.dilation, module.groups))
 
 def replace_conv_transpose(model:torch.nn.Module, old:type, new:type):
-    """Bias always True!!!"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     for n, module in model.named_children():
         if len(list(module.children())) > 0:
             ## compound module, go inside it
@@ -541,6 +1116,30 @@ def replace_conv_transpose(model:torch.nn.Module, old:type, new:type):
 
 
 def unonehot(mask: torch.Tensor, batch = False) -> torch.Tensor:
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     if batch: return torch.argmax(mask, dim=1)
     return torch.argmax(mask, dim=0)
 
@@ -550,7 +1149,29 @@ def preds_batch_to_onehot(preds:torch.Tensor):
 
 
 def angle(a, b, dim=-1):
-    """https://github.com/pytorch/pytorch/issues/59194"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     a_norm = a.norm(dim=dim, keepdim=True)
     b_norm = b.norm(dim=dim, keepdim=True)
     return 2 * torch.atan2(
@@ -560,7 +1181,29 @@ def angle(a, b, dim=-1):
 
 @contextmanager
 def seeded_rng(seed:Optional[Any]=0):
-    """Context manager, sets seed to torch,numpy and random. If seed is None, does nothing."""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     if seed is None:
         yield
         return
@@ -577,15 +1220,28 @@ def seeded_rng(seed:Optional[Any]=0):
     random.setstate(python_state)
 
 def seed0_worker(worker_id):
-    """
-    ```py
-    DataLoader(
-    train_dataset,
-    batch_size=batch_size,
-    num_workers=num_workers,
-    worker_init_fn=seed_worker,
-    generator=g,)
-    ```
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     worker_seed = torch.initial_seed() % 2**32
     np.random.seed(worker_seed)
@@ -607,10 +1263,58 @@ def seeded_randperm(n,
     requires_grad = False,
     seed=0,
     ):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     with seeded_rng(seed):
         return torch.randperm(n, out=out, dtype=dtype, layout=layout, device=device, pin_memory=pin_memory, requires_grad=requires_grad)
 
 def stepchunk(vec:torch.Tensor|np.ndarray, chunks:int, maxlength:Optional[int]=None):
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
+
     maxlength = maxlength or vec.shape[0]
     return [vec[i : i+maxlength : chunks] for i in range(chunks)]
 
@@ -621,6 +1325,30 @@ class ConcatZeroChannelsToDataloader:
         self.resulting_channels=resulting_channels
     def __len__(self): return len(self.dataloader)
     def __iter__(self):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         for inputs, targets in self.dataloader:
             shape = list(inputs.shape)
             shape[1] = self.resulting_channels - shape[1]
@@ -634,19 +1362,56 @@ class BatchInputTransforms:
         self.transforms = Compose(transforms)
     def __len__(self): return len(self.dataloader)
     def __iter__(self):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         for inputs, targets in self.dataloader:
             yield self.transforms(inputs), targets
 
 def map_to_base_np(number:int, base):
-    """
-    Convert an integer into a list of digits of that integer in a given base.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        number (int): The integer to convert.
-        base (int): The base to convert the integer to.
+        dictionary (dict): The processed files map.
 
     Returns:
-        numpy.ndarray: An array of digits representing the input integer in the given base.
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if number == 0: return 0
     # Convert the input numbers to their digit representation in the given base
@@ -656,15 +1421,28 @@ def map_to_base_np(number:int, base):
     return base_digits
 
 def map_to_base(number:int, base):
-    """
-    Convert an integer into a list of digits of that integer in a given base.
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
 
     Args:
-        number (int): The integer to convert.
-        base (int): The base to convert the integer to.
+        dictionary (dict): The processed files map.
 
     Returns:
-        numpy.ndarray: An array of digits representing the input integer in the given base.
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
     """
     if number == 0: return torch.tensor([0])
     # Convert the input numbers to their digit representation in the given base
@@ -675,7 +1453,29 @@ def map_to_base(number:int, base):
 
 
 def sliding_inference_around_3d(input:torch.Tensor, inferer, size, step, around, nlabels):
-    """Input must be a 4D C* or 5D BC* tensor"""
+    """Save the processed files map to a JSON file.
+
+    Function parameters should be documented in the ``Args`` section. The
+    name of each parameter is required. The type and description of each
+    parameter is optional, but should be included if not obvious.
+
+    Args:
+        dictionary (dict): The processed files map.
+
+    Returns:
+        bool: True if successful, False otherwise.
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+            
+            {
+            'param1': param1,
+            'param2': param2
+            }
+    """
     if input.ndim == 4: input = input.unsqueeze(0)
     results = torch.zeros((input.shape[0], nlabels, *input.shape[2:]), device=input.device,)
     counts = torch.zeros_like(results)
@@ -732,10 +1532,58 @@ class MRISlicer:
         self.any_prob = any_prob
 
     def set_settings(self, around:Optional[int] = None, any_prob: Optional[float] = None):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         if around is not None: self.around = around
         if len(self.x) > 0 and any_prob is not None: self.any_prob = any_prob
 
     def __call__(self):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         # pick a dimension
         dim: Literal[0,1,2] = random.choice([0,1,2])
 
@@ -757,7 +1605,29 @@ class MRISlicer:
         return self.get_slice(dim, coord)
 
     def get_slice(self, dim: Literal[0,1,2], coord: int):
-        """Get a slice from given `dim` and `coord`"""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         # get a tensor
         if dim == 0:
             tensor = self.tensor
@@ -785,7 +1655,29 @@ class MRISlicer:
         return tensor[:, coord - self.around : coord + self.around + 1].flip((1,)).flatten(0,1), seg[coord]
 
     def get_random_slice(self):
-        """Get a random slice, ignores `any_prob`."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         # pick a dimension
         dim: Literal[0,1,2] = random.choice([0,1,2])
 
@@ -798,7 +1690,29 @@ class MRISlicer:
         return self.get_slice(dim, coord)
 
     def yield_all_seg_slice_callables(self) -> Generator[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Yield all slices that have segmentation as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         # pick a dimension
         for dim in (0, 1, 2):
 
@@ -811,15 +1725,81 @@ class MRISlicer:
                 yield functools.partial(self.get_slice, dim, coord)
 
     def get_all_seg_slice_callables(self) -> list[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Get all slices that have segmentation as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return list(self.yield_all_seg_slice_callables())
 
     def get_all_seg_slices(self) -> list[tuple[torch.Tensor, torch.Tensor]]:
-        """Get all slices that have segmentation."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return [i() for i in self.get_all_seg_slice_callables()]
 
     def yield_all_slice_callables(self) -> Generator[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Yield all slices, including empty segmentation ones, as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         # pick a dimension
         for dim in (0, 1, 2):
 
@@ -833,16 +1813,82 @@ class MRISlicer:
                 yield functools.partial(self.get_slice, dim, coord)
 
     def get_all_slice_callables(self) -> list[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Get all slices that have segmentation as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return list(self.yield_all_slice_callables())
 
     def get_all_slices(self) -> list[tuple[torch.Tensor, torch.Tensor]]:
-        """Get all slices that have segmentation."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return [i() for i in self.get_all_slice_callables()]
 
 
     def yield_all_empty_slice_callables(self) -> Generator[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Yield all slices, including empty segmentation ones, as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         # pick a dimension
         for dim in (0, 1, 2):
 
@@ -860,16 +1906,84 @@ class MRISlicer:
                 if coord not in coord_list: yield functools.partial(self.get_slice, dim, coord)
 
     def get_all_empty_slice_callables(self) -> list[Callable[[], tuple[torch.Tensor, torch.Tensor]]]:
-        """Get all slices that have segmentation as partials."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return list(self.yield_all_empty_slice_callables())
 
     def get_all_empry_slices(self) -> list[tuple[torch.Tensor, torch.Tensor]]:
-        """Get all slices that have segmentation."""
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
         return [i() for i in self.get_all_empty_slice_callables()]
 
     def get_non_empty_count(self): return len(self.x) + len(self.y) + len(self.z)
 
     def get_anyp_random_slice_callables(self):
+        """Save the processed files map to a JSON file.
+
+        Function parameters should be documented in the ``Args`` section. The
+        name of each parameter is required. The type and description of each
+        parameter is optional, but should be included if not obvious.
+
+        Args:
+            dictionary (dict): The processed files map.
+
+        Returns:
+            bool: True if successful, False otherwise.
+            The return type is optional and may be specified at the beginning of
+            the ``Returns`` section followed by a colon.
+            The ``Returns`` section may span multiple lines and paragraphs.
+            Following lines should be indented to match the first line.
+            The ``Returns`` section supports any reStructuredText formatting,
+            including literal blocks::
+                
+                {
+                'param1': param1,
+                'param2': param2
+                }
+        """
+
         seg_prob = 1 - self.any_prob
         any_to_seg_ratio = self.any_prob / seg_prob
         return [self.get_random_slice for i in range(int(self.get_non_empty_count() * any_to_seg_ratio))]
