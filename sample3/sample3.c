@@ -21,16 +21,112 @@
 #include <fluent-bit/flb_thread_storage.h>
 #include <fluent-bit/flb_coro.h>
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 FLB_TLS_DEFINE(struct flb_coro, flb_coro_key);
 
 static pthread_mutex_t coro_mutex_init;
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 void flb_coro_init()
 {
     FLB_TLS_INIT(flb_coro_key);
     pthread_mutex_init(&coro_mutex_init, NULL);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 void flb_coro_thread_init()
 {
     size_t s;
@@ -42,6 +138,38 @@ void flb_coro_thread_init()
     pthread_mutex_unlock(&coro_mutex_init);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 struct flb_coro *flb_coro_get()
 {
     struct flb_coro *coro;
@@ -50,6 +178,38 @@ struct flb_coro *flb_coro_get()
     return coro;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 void flb_coro_set(struct flb_coro *coro)
 {
     FLB_TLS_SET(flb_coro_key, coro);

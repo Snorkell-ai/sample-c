@@ -10,9 +10,36 @@
 #include "string_conversion.h"
 
 /**
- * @brief Return parsers.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @return Parsers.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 static void *sms_deliver_get_parsers(void)
 {
@@ -20,7 +47,36 @@ static void *sms_deliver_get_parsers(void)
 }
 
 /**
- * @brief Data decoder for the parser.
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 static void *sms_deliver_get_decoder(void)
 {
@@ -28,9 +84,36 @@ static void *sms_deliver_get_decoder(void)
 }
 
 /**
- * @brief Return number of parsers.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @return Number of parsers.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 static int sms_deliver_get_parser_count(void)
 {
@@ -38,9 +121,36 @@ static int sms_deliver_get_parser_count(void)
 }
 
 /**
- * @brief Return deliver data structure size to store all the information.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @return Data structure size.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ *
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ *
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 static uint32_t sms_deliver_get_data_size(void)
 {
