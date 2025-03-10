@@ -38,6 +38,17 @@ enum {
     FLB_CSV_STATE_FOUND_CR
 };
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static void reset_state(struct flb_csv_state *state)
 {
     state->start = 0;
@@ -50,6 +61,17 @@ static void reset_state(struct flb_csv_state *state)
     state->offset = 0;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static int invoke_field_callback(struct flb_csv_state *state, const char *buf, size_t bufsize)
 {
     size_t escpos;
@@ -87,6 +109,17 @@ static int invoke_field_callback(struct flb_csv_state *state, const char *buf, s
     return 0;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static int parse_simple(struct flb_csv_state *state, const char *buf, size_t bufsize)
 {
     char c;
@@ -107,6 +140,17 @@ static int parse_simple(struct flb_csv_state *state, const char *buf, size_t buf
     return 0;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static int parse_quoted(struct flb_csv_state *state, const char *buf, size_t bufsize)
 {
     char c;
@@ -138,6 +182,17 @@ static int parse_quoted(struct flb_csv_state *state, const char *buf, size_t buf
     return 0;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static int parse_csv_field(struct flb_csv_state *state, const char *data, size_t len)
 {
     int ret;
@@ -202,6 +257,17 @@ static int parse_csv_field(struct flb_csv_state *state, const char *data, size_t
     return ret;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void flb_csv_init(struct flb_csv_state *state,
                   flb_csv_field_parsed_callback field_callback,
                   void *data)
@@ -214,6 +280,17 @@ void flb_csv_init(struct flb_csv_state *state,
     reset_state(state);
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 int flb_csv_parse_record(struct flb_csv_state *state,
                          char **bufptr,
                          size_t *buflen,
@@ -306,6 +383,17 @@ int flb_csv_parse_record(struct flb_csv_state *state,
     return FLB_CSV_SUCCESS;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void flb_csv_destroy(struct flb_csv_state *state)
 {
     flb_sds_destroy(state->buffered_data);

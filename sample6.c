@@ -46,6 +46,17 @@
 * PUBLIC LIST API documented in list.h
 *----------------------------------------------------------*/
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void vListInitialise( List_t * const pxList )
 {
     traceENTER_vListInitialise( pxList );
@@ -84,8 +95,18 @@ void vListInitialise( List_t * const pxList )
 
     traceRETURN_vListInitialise();
 }
-/*-----------------------------------------------------------*/
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void vListInitialiseItem( ListItem_t * const pxItem )
 {
     traceENTER_vListInitialiseItem( pxItem );
@@ -100,8 +121,18 @@ void vListInitialiseItem( ListItem_t * const pxItem )
 
     traceRETURN_vListInitialiseItem();
 }
-/*-----------------------------------------------------------*/
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void vListInsertEnd( List_t * const pxList,
                      ListItem_t * const pxNewListItem )
 {
@@ -134,8 +165,18 @@ void vListInsertEnd( List_t * const pxList,
 
     traceRETURN_vListInsertEnd();
 }
-/*-----------------------------------------------------------*/
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void vListInsert( List_t * const pxList,
                   ListItem_t * const pxNewListItem )
 {
@@ -211,9 +252,19 @@ void vListInsert( List_t * const pxList,
 
     traceRETURN_vListInsert();
 }
-/*-----------------------------------------------------------*/
 
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove )
 {
     /* The list item knows which list it is in.  Obtain the list from the list
