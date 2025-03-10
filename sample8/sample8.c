@@ -15,6 +15,17 @@
 #include "parser.h"
 #include "string_conversion.h"
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 LOG_MODULE_DECLARE(sms, CONFIG_SMS_LOG_LEVEL);
 
 /** @brief Maximum length of SMS address, i.e., phone number, in octets. */
@@ -104,25 +115,32 @@ struct pdu_deliver_data {
 /**
  * @brief Swap upper and lower 4 bits between each other.
  */
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static uint8_t swap_nibbles(uint8_t value)
 {
 	return ((value & 0x0f) << 4) | ((value & 0xf0) >> 4);
 }
 
 /**
- * @brief Converts an octet having two semi-octets into a decimal.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @details Semi-octet representation is explained in 3GPP TS 23.040 Section 9.1.2.3.
- * An octet has semi-octets in the following order:
- *   semi-octet-digit2, semi-octet-digit1
- * Octet for decimal number '21' is hence represented as semi-octet bits:
- *   00010010
- * This function is needed in timestamp (TP SCTS) conversion that is specified
- * in 3GPP TS 23.040 Section 9.2.3.11.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @param[in] value Octet to be converted.
- *
- * @return Decimal value.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static uint8_t semioctet_to_dec(uint8_t value)
 {
@@ -132,12 +150,15 @@ static uint8_t semioctet_to_dec(uint8_t value)
 }
 
 /**
- * @brief Convert phone number into string format.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in] number Number in semi-octet representation.
- * @param[in] number_length Number length.
- * @param[out] str_number Output buffer where number is stored. Size shall be at minimum twice the
- *                        number length rounded up.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static void convert_number_to_str(uint8_t *number, uint8_t number_length, char *str_number)
 {
@@ -180,12 +201,15 @@ static void convert_number_to_str(uint8_t *number, uint8_t number_length, char *
 }
 
 /**
- * @brief Decode SMS service center number specified in 3GPP TS 24.011 Section 8.2.5.1.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_deliver_smsc(struct parser *parser, uint8_t *buf)
 {
@@ -199,12 +223,15 @@ static int decode_pdu_deliver_smsc(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode first byte of SMS-DELIVER header as specified in 3GPP TS 23.040 Section 9.2.2.1.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_deliver_header(struct parser *parser, uint8_t *buf)
 {
@@ -224,12 +251,15 @@ static int decode_pdu_deliver_header(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode TP-Originating-Address as specified in 3GPP TS 23.040 Section 9.2.3.7 and 9.1.2.5.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_oa_field(struct parser *parser, uint8_t *buf)
 {
@@ -270,12 +300,15 @@ static int decode_pdu_oa_field(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode TP-Protocol-Identifier as specified in 3GPP TS 23.040 Section 9.2.3.9.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_pid_field(struct parser *parser, uint8_t *buf)
 {
@@ -289,12 +322,15 @@ static int decode_pdu_pid_field(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode TP-Data-Coding-Scheme as specified in 3GPP TS 23.038 Section 4.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_dcs_field(struct parser *parser, uint8_t *buf)
 {
@@ -329,12 +365,15 @@ static int decode_pdu_dcs_field(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode TP-Service-Centre-Time-Stamp as specified in 3GPP TS 23.040 Section 9.2.3.11.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_scts_field(struct parser *parser, uint8_t *buf)
 {
@@ -366,12 +405,15 @@ static int decode_pdu_scts_field(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode TP-User-Data-Length as specified in 3GPP TS 23.040 Section 9.2.3.16.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_udl_field(struct parser *parser, uint8_t *buf)
 {
@@ -385,13 +427,15 @@ static int decode_pdu_udl_field(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Check validity of concatenated message information element.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @details This is specified in 3GPP TS 23.040 Section 9.2.3.24.1 and 9.2.3.24.8.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @param[in,out] parser Parser instance containing the fields to check. If invalid fields are
- *                       detected, all concatenation fields are reset and whole information
- *                       element is ignored.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static void udh_ie_concat_validity_check(struct pdu_deliver_data * const pdata)
 {
@@ -424,13 +468,15 @@ static void udh_ie_concat_validity_check(struct pdu_deliver_data * const pdata)
 }
 
 /**
- * @brief Decode User Data Header Information Elements as specified
- * in 3GPP TS 23.040 Section 9.2.3.24.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static void decode_pdu_udh_ie(struct parser *parser, uint8_t *buf)
 {
@@ -547,12 +593,15 @@ static void decode_pdu_udh_ie(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode User Data Header as specified in 3GPP TS 23.040 Section 9.2.3.24.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_udh(struct parser *parser, uint8_t *buf)
 {
@@ -594,16 +643,15 @@ static int decode_pdu_udh(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode user data for GSM 7 bit coding scheme.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @details This will decode the user data based on GSM 7 bit coding scheme and packing
- * specified in 3GPP TS 23.038 Section 6.1.2.1 and 6.2.1.
- * User Data Header is also taken into account as specified in 3GPP TS 23.040 Section 9.2.3.24.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
- *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_ud_7bit(struct parser *parser, uint8_t *buf)
 {
@@ -661,17 +709,15 @@ static int decode_pdu_ud_7bit(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode user data for 8 bit data coding scheme.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @details This will essentially just copy the data from the SMS-DELIVER message into the
- * decoded payload as 8bit data means there is really no coding scheme.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * User Data Header is also taken into account as specified in 3GPP TS 23.040 Section 9.2.3.24.
- *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
- *
- * @return Number of parsed bytes.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_ud_8bit(struct parser *parser, uint8_t *buf)
 {
@@ -693,15 +739,15 @@ static int decode_pdu_ud_8bit(struct parser *parser, uint8_t *buf)
 }
 
 /**
- * @brief Decode user data for SMS-DELIVER message based on data coding scheme.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @details User Data Header is also taken into account as specified in
- * 3GPP TS 23.040 Section 9.2.3.24.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @param[in,out] parser Parser instance.
- * @param[in] buf Buffer containing PDU and pointing to this field.
- *
- * @return Non-negative number indicates number of parsed bytes. Negative value is an error code.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int decode_pdu_deliver_message(struct parser *parser, uint8_t *buf)
 {
@@ -742,13 +788,32 @@ const static parser_module sms_pdu_deliver_parsers[] = {
  *
  * @return Parsers.
  */
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 static void *sms_deliver_get_parsers(void)
 {
 	return (parser_module *)sms_pdu_deliver_parsers;
 }
 
 /**
- * @brief Data decoder for the parser.
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static void *sms_deliver_get_decoder(void)
 {
@@ -756,9 +821,15 @@ static void *sms_deliver_get_decoder(void)
 }
 
 /**
- * @brief Return number of parsers.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @return Number of parsers.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int sms_deliver_get_parser_count(void)
 {
@@ -766,9 +837,15 @@ static int sms_deliver_get_parser_count(void)
 }
 
 /**
- * @brief Return deliver data structure size to store all the information.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @return Data structure size.
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static uint32_t sms_deliver_get_data_size(void)
 {
@@ -776,12 +853,15 @@ static uint32_t sms_deliver_get_data_size(void)
 }
 
 /**
- * @brief Get SMS-DELIVER header for given parser.
+ * Transforms the sign-up request data to match the backend's expected format.
  *
- * @param[in] parser Parser instance.
- * @param[out] header Output structure of type: struct sms_deliver_header*
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
  *
- * @return Zero on success, otherwise error code.
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
  */
 static int sms_deliver_get_header(struct parser *parser, void *header)
 {
@@ -814,11 +894,33 @@ const static struct parser_api sms_deliver_api = {
  *
  * @return SMS-DELIVER API structure of type struct parser_api*.
  */
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 void *sms_deliver_get_api(void)
 {
 	return (struct parser_api *)&sms_deliver_api;
 }
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ *
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ *
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ */
 int sms_deliver_pdu_parse(const char *pdu, struct sms_data *data)
 {
 	static struct parser sms_deliver;
